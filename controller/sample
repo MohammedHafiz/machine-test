@@ -1,0 +1,31 @@
+exports.delete_post= async (req,res) => {
+    console.log(req.params.postId)
+    const posts = await Post.findById(req.params.postId)
+    console.log(post)
+    .populate("postedBy","_id")
+     .exec((err,post) => {
+         console.log("post",post)
+        if(err || !post){
+            return res.status(401).json({error:err})
+        }
+        // if(!post){
+        //     console.log("no post")
+        //     return res.status(401).json({error:"user can only delete their post only"})
+        // }
+        // // console.log(req.user._id)
+        // // console.log(req.postedBy._id)
+        // // console.log(post.postedBy._id === req.user._id)
+        console.log((post.postedBy._id).toString() === (req.user._id).toString())
+        if((post.postedBy._id).toString() === (req.user._id).toString()){
+            post.remove()
+            .then(result=>{
+                console.log("result",result)
+                res.status(200).json({message:"succesfully deleted"})
+            }).catch(err => {
+                console.log(err)
+            })
+        }
+
+    })
+
+}
