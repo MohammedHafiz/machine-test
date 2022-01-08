@@ -1,50 +1,51 @@
 const mongoose = require('mongoose');
-const {ObjectId} = mongoose.Schema.Types;
+const { ObjectId } = mongoose.Schema.Types;
 const userSchema = new mongoose.Schema({
-    name :{
-        type:String,
-       
+    name: {
+        type: String,
+
     },
-    user_name :{
-        type:String, 
-        unique :true
+    user_name: {
+        type: String,
+        unique: true
     },
-    mobileNumber:{
-        type:String,
+    mobileNumber: {
+        type: String,
     },
-    email:{
-        type : String,
-        unique :true
+    email: {
+        type: String,
+        unique: true
     },
-    password :{
-        type : String,
-        min : 8 ,
-        max : 16
+    password: {
+        type: String,
+        min: 8,
+        max: 16
     },
-    profile_pic : {
-        type : String,
-        
+    profile_pic: {
+        type: String,
+        default: ""
+
     },
-    following :[{
-        type : ObjectId,
-        ref :"User"
+    following: [{
+        type: ObjectId,
+        ref: "User"
     }],
-    followers:[{ 
-        type : ObjectId,
-        ref : "User"
+    followers: [{
+        type: ObjectId,
+        ref: "User"
     }],
-    gender :{
-        type : String
+    gender: {
+        type: String
     },
-    is_active :{
-        type : Boolean,
-        default:true
+    is_active: {
+        type: Boolean,
+        default: true
     },
-    resetToken : String,
-    expireToken : Date
+    resetToken: String,
+    expireToken: Date
 
 },
-     {timestamps:true}
+    { timestamps: true }
 )
 
-module.exports = mongoose.model("User",userSchema)
+module.exports = mongoose.model("User", userSchema)
